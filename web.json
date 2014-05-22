@@ -1,0 +1,14 @@
+{
+   "service" : {
+      "name" : "web",
+      "port" : 80,
+      "tags" : [
+         "nginx",
+         "v1.0.0"
+      ],
+      "check" : {
+         "script" : "curl 127.0.0.1:80 >/dev/null 2>&1",
+         "interval" : "5s"
+      }
+   }
+}

@@ -1,0 +1,47 @@
+{
+  "services": {
+    "web": {
+      "discovery": {
+        "method": "dns",
+        "nameserver": "127.0.0.1",
+        "check_interval": 5,
+        "servers": [
+          {
+            "host": "web.service.consul",
+            "port": 80
+          }
+        ]
+      },
+      "haproxy": {
+        "server_options": "check inter 2s rise 3 fall 2",
+        "listen": [
+          "mode http",
+          "option httplog"
+        ],
+        "port": 80,
+        "backend": [
+          "mode http",
+          "option httpchk GET / HTTP/1.0"
+        ]
+      }
+    }
+  },
+  "haproxy": {
+    "reload_command": "systemctl restart haproxy.service",
+    "config_file_path": "/etc/haproxy/haproxy.cfg",
+    "do_writes": true,
+    "do_reloads": true,
+    "do_socket": false,
+    "bind_address": "0.0.0.0",
+    "global": [
+      "daemon",
+      "user haproxy",
+      "group haproxy"
+    ],
+    "defaults": [
+      "option   redispatch",
+      "option   http-server-close",
+      "balance  static-rr"
+    ]
+  }
+}

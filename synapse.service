@@ -1,0 +1,10 @@
+[Unit]
+Description=Synapse is Airbnb's new system for service discovery
+After=haproxy.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/synapse --config /etc/synapse.conf.json
+
+[Install]
+WantedBy=multi-user.target
